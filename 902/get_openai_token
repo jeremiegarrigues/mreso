@@ -1,0 +1,63 @@
+## Concise Guide: Get an OpenAI API Key
+
+This guide explains how to obtain and use an OpenAI API key.
+
+### Why You Need an API Key
+
+* To use OpenAI's models (like GPT-4, GPT-3.5-turbo, DALL-E, etc.) programmatically via their API.
+* To integrate OpenAI capabilities into your own applications or scripts.
+
+### Prerequisites
+
+1.  **OpenAI Account:** You need an account on the OpenAI platform: [https://platform.openai.com/](https://platform.openai.com/)
+2.  **Billing Setup:** API usage is generally paid. You will likely need to set up a payment method in your OpenAI account settings (**Billing** section) to enable API usage beyond any potential initial free credits.
+
+### How to Get Your API Key
+
+1.  **Log in** to your account at [https://platform.openai.com/](https://platform.openai.com/).
+2.  Click your account name or organization icon (often in the top-right or left sidebar).
+3.  Navigate to the **"API keys"** section (usually found under a "Settings", "View API keys", or similar menu item in the sidebar).
+4.  Click the **"+ Create new secret key"** button (or similar wording).
+5.  Give your key a descriptive name (e.g., `my-app-integration-key`) for your reference.
+6.  **Immediately copy the displayed API key (`sk-...`) and save it in a secure location.** OpenAI will **not** show you the full key again after you close the dialog.
+
+### How to Use the API Key
+
+Provide the API key to your application, script, or tool:
+
+* **Standard Method (Recommended):** Set the `OPENAI_API_KEY` environment variable. Most official and third-party libraries (like OpenAI's Python library) automatically detect and use this variable.
+
+    * *Linux/macOS:*
+        ```bash
+        export OPENAI_API_KEY='sk-YourSecretKeyHere'
+        ```
+    * *Windows (Command Prompt):*
+        ```cmd
+        set OPENAI_API_KEY=sk-YourSecretKeyHere
+        ```
+    * *Windows (PowerShell):*
+        ```powershell
+        $env:OPENAI_API_KEY='sk-YourSecretKeyHere'
+        ```
+
+* **Directly in Code (Use With Caution):** Pass the key directly when initializing a client or making a call. This is generally less secure, especially if the code is shared or committed to version control.
+    ```python
+    # Example with OpenAI Python library
+    import openai
+    openai.api_key = 'sk-YourSecretKeyHere'
+    # Make API calls...
+    ```
+
+* **HTTP Requests:** When making direct HTTP calls to the API endpoint, include the key in the `Authorization` header.
+    ```
+    Authorization: Bearer sk-YourSecretKeyHere
+    ```
+
+### Security and Costs
+
+* **Treat your API key like a password.** Keep it **strictly confidential**.
+* **Do not** embed API keys directly in publicly accessible code (like client-side JavaScript) or commit them to version control systems (like Git). Use environment variables or secure secret management solutions.
+* Consider creating different keys for different applications to manage access and revoke them if necessary.
+* **Reminder:** API usage associated with this key is **billed** to your OpenAI account according to their pricing. Monitor your usage regularly through the OpenAI platform dashboard.
+
+---

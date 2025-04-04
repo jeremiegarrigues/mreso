@@ -1,0 +1,61 @@
+## Get an HF Token for LLM Downloads
+
+This guide explains how to get and use a Hugging Face token, focusing on downloading Large Language Models (LLMs).
+
+### Why You Need a Token
+
+* To authenticate downloads from the Hugging Face Hub.
+* **Required** for **gated models** (like Llama, Gemma, etc.) *after* you accept their specific terms online on the model's page.
+* Ensures smoother downloads of **public models**, especially when using libraries like `transformers`.
+
+### Prerequisites
+
+1.  **Hugging Face Account:** You need an account at [https://huggingface.co/](https://huggingface.co/).
+2.  **For Gated Models:** Before attempting to download, you **must** visit the specific model's page on the Hub **first** (while logged in) and accept its terms/license online. The download will fail otherwise, even with a valid token.
+
+### How to Get Your Token
+
+1.  **Log in** to your account at [https://huggingface.co/](https://huggingface.co/).
+2.  Go to **Settings** (click your profile picture in the top-right corner).
+3.  Click **Access Tokens** in the left-hand menu.
+4.  Generate a **`New token`**:
+    * Give it a descriptive name (e.g., `llm-download-token`).
+    * Select the **`read`** role (this is sufficient for downloading models).
+    * Click **"Generate a token"**.
+    * **Copy** the generated token string (it will start with `hf_...`). Save it securely.
+    * *(Alternatively, you can copy an existing token with `read` permissions if you already have one suitable)*.
+
+### How to Use the Token for Downloads
+
+Make the token available to your download tools (like `huggingface_hub`, `transformers`, etc.) or scripts:
+
+* **Recommended:** Use the Hugging Face Command Line Interface (CLI). If you haven't already, install it (`pip install -U huggingface_hub`). Then, log in via your terminal:
+    ```bash
+    huggingface-cli login
+    ```
+    Paste your copied token (`hf_...`) when prompted. This command securely stores the token locally, and libraries will typically use it automatically when needed.
+
+* **Alternative:** Set the `HUGGINGFACE_TOKEN` environment variable before running your script.
+    * *Linux/macOS:*
+        ```bash
+        export HUGGINGFACE_TOKEN='hf_YourTokenHere'
+        ```
+    * *Windows (Command Prompt):*
+        ```cmd
+        set HUGGINGFACE_TOKEN=hf_YourTokenHere
+        ```
+    * *Windows (PowerShell):*
+        ```powershell
+        $env:HUGGINGFACE_TOKEN='hf_YourTokenHere'
+        ```
+
+*(Libraries like `transformers` usually detect and use the token automatically from either the CLI login cache or the environment variable when they need to download authenticated models.)*
+
+### Security
+
+* Treat your Hugging Face token like a password.
+* Keep it **private** and secure.
+* Do not embed it directly in code shared publicly or commit it to version control systems (like Git).
+* Use tokens with the appropriate role (`read` is usually sufficient for downloads).
+
+---
